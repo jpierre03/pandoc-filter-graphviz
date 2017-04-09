@@ -18,8 +18,20 @@ cabal-version:       >=1.10
 
 executable pandoc-filter-graphviz
   main-is:             Main.hs
-  -- other-modules:       
+  other-modules:
+    PandocFilterGraphviz
   -- other-extensions:    
-  build-depends:       base >=4.9 && <4.10
+  build-depends:       base
+    , bytestring
+    , pandoc
+    , text
+    , base16-bytestring
+    , cryptonite
+    , byteable
+    , containers
+    , directory
+    , process
+    , pandoc-types
+    , filepath
   hs-source-dirs:      src
   default-language:    Haskell2010
