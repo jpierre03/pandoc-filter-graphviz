@@ -5,7 +5,7 @@ name:                pandoc-filter-graphviz
 version:             0.1.0.0
 synopsis:            A Pandoc filter to use graphviz
 description:         Interpret '~~~ graphviz' bloc as a call to graphviz software and substritude text with produced picture.
-homepage:            https://gist.github.com/jpierre03/97e39d8715c14752ac28e78f99c08d97
+homepage:            https://github.com/jpierre03/pandoc-filter-graphviz
 license:             BSD3
 license-file:        LICENSE
 author:              Jean-Pierre PRUNARET
