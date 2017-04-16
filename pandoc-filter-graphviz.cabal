@@ -21,7 +21,7 @@ executable pandoc-filter-graphviz
   other-modules:
     PandocFilterGraphviz
   -- other-extensions:    
-  build-depends:       base
+  build-depends:       base > 4.5 && < 5
     , bytestring
     , pandoc
     , text
