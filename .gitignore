@@ -1,4 +1,6 @@
 # ---> Exec
+*.pdf
+graphviz-images/
 
 # ---> Haskell
 dist
