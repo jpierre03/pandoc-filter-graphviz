@@ -70,6 +70,7 @@ getCaption m = case M.lookup "caption" m of
 getFmt :: Maybe Format -> String
 getFmt mfmt = case mfmt of
   Just (Format "latex") -> "pdf"
+  Just (Format "beamer") -> "pdf"
   Just _ -> "png"
   Nothing -> "png"
 
