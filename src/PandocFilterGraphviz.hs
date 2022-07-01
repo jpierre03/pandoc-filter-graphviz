@@ -1,4 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE CPP #-}
 
 module PandocFilterGraphviz where
 
@@ -90,12 +92,20 @@ renderDot mfmt rndr src dst =
                     , show src ]
 
 graphviz :: Maybe Format -> Block -> IO Block
+#if MIN_VERSION_pandoc_types(1,20,0)
+graphviz mfmt cblock@(CodeBlock (id, classes, attrs) (T.unpack -> content)) =
+#else
 graphviz mfmt cblock@(CodeBlock (id, classes, attrs) content) =
+#endif
   if "graphviz" `elem` classes then do
     ensureFile dest >> writeFile dest content
     img <- renderDot1 mfmt mrndr dest
     ensureFile img
+#if MIN_VERSION_pandoc_types(1,20,0)
+    return $ Para [Image (id,classes,attrs) [] (T.pack img, caption)]
+#else
     return $ Para [Image (id,classes,attrs) [] (img, T.unpack caption)]
+#endif
   else return cblock
   where
     dest = fileName4Code "graphviz" (T.pack content) (Just "dot")
@@ -105,7 +115,11 @@ graphviz mfmt cblock@(CodeBlock (id, classes, attrs) content) =
         \exist ->
           unless exist $ writeFile fp ""
     toTextPairs = Prelude.map (\(f,s) -> (T.pack f,T.pack s))
+#if MIN_VERSION_pandoc_types(1,20,0)
+    m = M.fromList $ attrs
+#else
     m = M.fromList $ toTextPairs $ attrs
+#endif
     mrndr = case M.lookup "renderer" m of
       Just str -> rendererFromString str
       _ -> Nothing
